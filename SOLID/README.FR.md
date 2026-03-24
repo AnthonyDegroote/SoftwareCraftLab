@@ -57,18 +57,18 @@ SOLID/
 ```mermaid
 mindmap
   root((🏛️ SOLID))
-    🇸 Single Responsibility
+    Single Responsibility
       Une classe = une raison de changer
-    🇴 Open/Closed
+    Open/Closed
       Ouvert à l extension
       Fermé à la modification
-    🇱 Liskov Substitution
+    Liskov Substitution
       Un sous-type remplace son type de base
       Sans surprise
-    🇮 Interface Segregation
+    Interface Segregation
       Interfaces petites et ciblées
       Pas de méthodes inutiles
-    🇩 Dependency Inversion
+    Dependency Inversion
       Dépendre des abstractions
       Pas des implémentations
 ```
