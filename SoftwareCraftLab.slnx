@@ -34,6 +34,7 @@
     <Project Path="CUPID/With/Tests/Cupid.With.Tests/Cupid.With.Tests.csproj" Id="5ebad363-b2e5-489a-99c2-19c411dd36d2" />
   </Folder>
   <Folder Name="/Éléments de solution/">
+    <File Path=".editorconfig" />
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />

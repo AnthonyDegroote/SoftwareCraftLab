@@ -1,0 +1,306 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  EditorConfig — SoftwareCraftLab                                     ║
+# ║  https://editorconfig.org                                            ║
+# ║                                                                      ║
+# ║  EditorConfig permet de définir des règles de style et de format     ║
+# ║  partagées entre tous les développeurs d'un projet, quel que soit    ║
+# ║  l'éditeur ou l'IDE utilisé (VS, VS Code, Rider, etc.).              ║
+# ║                                                                      ║
+# ║  Chaque règle suit le format :                                       ║
+# ║    nom_de_la_regle = valeur:sévérité                                 ║
+# ║                                                                      ║
+# ║  Sévérités possibles :                                               ║
+# ║    silent     → appliquée silencieusement (pas de diagnostic)        ║
+# ║    suggestion → 💡 suggestion dans l'éditeur (points gris)          ║
+# ║    warning    → ⚠️ avertissement à la compilation                   ║
+# ║    error      → ❌ erreur de compilation                            ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+# "root = true" indique que ce fichier est le fichier racine.
+# L'éditeur arrête de chercher d'autres .editorconfig dans les dossiers parents.
+root = true
+
+# ══════════════════════════════════════════════════════════════════════
+# 📄 Règles par défaut — s'appliquent à TOUS les fichiers du projet
+# ══════════════════════════════════════════════════════════════════════
+[*]
+
+# Encodage des fichiers en UTF-8 (standard universel).
+charset = utf-8
+
+# Fin de ligne Windows (CRLF = \r\n). Utiliser "lf" pour Linux/macOS.
+end_of_line = crlf
+
+# Indentation avec des espaces (pas des tabulations).
+indent_style = space
+
+# Chaque niveau d'indentation = 4 espaces.
+indent_size = 4
+
+# Largeur visuelle d'une tabulation = 4 espaces (si des tabs existent).
+tab_width = 4
+
+# Supprime automatiquement les espaces en fin de ligne (trailing whitespace).
+trim_trailing_whitespace = true
+
+# Ajoute une ligne vide à la fin de chaque fichier (convention POSIX).
+insert_final_newline = true
+
+# ══════════════════════════════════════════════════════════════════════
+# 📝 Markdown — exception : on garde les espaces en fin de ligne
+#    car en Markdown, 2 espaces en fin de ligne = saut de ligne <br>.
+# ══════════════════════════════════════════════════════════════════════
+[*.md]
+trim_trailing_whitespace = false
+
+# ══════════════════════════════════════════════════════════════════════
+# 📦 XML / JSON / YAML — indentation plus compacte (2 espaces)
+#    pour les fichiers de configuration et de projet.
+# ══════════════════════════════════════════════════════════════════════
+[*.{xml,csproj,props,targets,json,yml,yaml}]
+indent_size = 2
+
+# ══════════════════════════════════════════════════════════════════════
+# 🗂️ Fichiers solution (.sln) — Visual Studio impose les tabulations.
+# ══════════════════════════════════════════════════════════════════════
+[*.sln]
+indent_style = tab
+
+# ══════════════════════════════════════════════════════════════════════
+# 🔷 C# — Règles de style et de conventions du langage
+# ══════════════════════════════════════════════════════════════════════
+[*.cs]
+
+# ──────────────────────────────────────────────────────────────────────
+# 🏷️ Qualification avec "this."
+#    false = ne pas préfixer avec "this." quand ce n'est pas nécessaire.
+#    ✅ _name        ❌ this._name
+#    ✅ Name         ❌ this.Name
+# ──────────────────────────────────────────────────────────────────────
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# 📐 Types prédéfinis vs types du framework
+#    true = préférer les mots-clés C# aux types .NET.
+#    ✅ int, string, decimal     ❌ Int32, String, Decimal
+# ──────────────────────────────────────────────────────────────────────
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# 🔒 Modificateurs d'accès obligatoires
+#    Exige "public", "private", "internal", etc. sur tous les membres
+#    (sauf dans les interfaces où c'est implicite).
+#    ✅ private readonly List<string> _items;
+#    ❌ readonly List<string> _items;
+# ──────────────────────────────────────────────────────────────────────
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+
+# ──────────────────────────────────────────────────────────────────────
+# 🧊 Champs readonly
+#    Suggère d'ajouter "readonly" aux champs qui ne sont jamais réassignés.
+#    ✅ private readonly List<string> _items = [];
+#    ❌ private List<string> _items = [];         (si jamais réassigné)
+# ──────────────────────────────────────────────────────────────────────
+dotnet_style_readonly_field = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# ✨ Initialiseurs et expressions simplifiées
+#    Préfère les syntaxes modernes et concises de C#.
+# ──────────────────────────────────────────────────────────────────────
+
+# Initialiseurs d'objet : ✅ new Order { Email = "..." }  ❌ var o = new Order(); o.Email = "...";
+dotnet_style_object_initializer = true:suggestion
+
+# Initialiseurs de collection : ✅ [1, 2, 3]  ❌ new List<int> { 1, 2, 3 }
+dotnet_style_collection_initializer = true:suggestion
+
+# Auto-propriétés : ✅ public string Name { get; }  ❌ champ + propriété manuelle
+dotnet_style_prefer_auto_properties = true:suggestion
+
+# Booléens simplifiés : ✅ if (isValid)  ❌ if (isValid == true)
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+
+# Assignation composée : ✅ total += 5  ❌ total = total + 5
+dotnet_style_prefer_compound_assignment = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# 📁 Namespaces — file-scoped (C# 10+)
+#    ✅ namespace Solid.With.Srp;          (une ligne, tout le fichier)
+#    ❌ namespace Solid.With.Srp { ... }   (bloc indenté)
+# ──────────────────────────────────────────────────────────────────────
+csharp_style_namespace_declarations = file_scoped:warning
+
+# ──────────────────────────────────────────────────────────────────────
+# 🎯 Utilisation de "var"
+#    - Types primitifs : type explicite    ✅ int count = 0;     ❌ var count = 0;
+#    - Type apparent (new, cast) : var ok  ✅ var list = new List<string>();
+#    - Ailleurs (LINQ, méthodes) : var ok  ✅ var result = GetItems();
+# ──────────────────────────────────────────────────────────────────────
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# ➡️ Expression-bodied members (corps d'expression avec =>)
+#    Autorise la syntaxe "=>" pour les membres courts sur une ligne.
+#    ✅ public double Area() => Width * Height;
+#    Les constructeurs restent en bloc classique pour plus de clarté.
+# ──────────────────────────────────────────────────────────────────────
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_expression_bodied_constructors = false:suggestion
+csharp_style_expression_bodied_operators = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_accessors = true:suggestion
+csharp_style_expression_bodied_lambdas = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# 🧩 Fonctionnalités C# modernes
+# ──────────────────────────────────────────────────────────────────────
+
+# Switch expressions (C# 8+) : ✅ x switch { "A" => 1, _ => 0 }  ❌ switch(x) { case "A": ... }
+csharp_style_prefer_switch_expression = true:suggestion
+
+# Pattern matching : ✅ if (obj is string s)  ❌ if (obj is string) { var s = (string)obj; }
+csharp_style_prefer_pattern_matching = true:suggestion
+
+# Not pattern : ✅ if (x is not null)  ❌ if (!(x is null))
+csharp_style_prefer_not_pattern = true:suggestion
+
+# Primary constructors (C# 12+) : ✅ class Service(IRepo repo)  ❌ class Service { private IRepo _repo; Service(IRepo repo) { _repo = repo; } }
+csharp_style_prefer_primary_constructors = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# 🧹 Simplifications de code
+# ──────────────────────────────────────────────────────────────────────
+
+# Using simplifié (C# 8+) : ✅ using var stream = File.Open(...)  ❌ using (var stream = File.Open(...)) { }
+csharp_prefer_simple_using_statement = true:suggestion
+
+# Accolades obligatoires même pour les blocs d'une seule ligne.
+# ✅ if (x) { return; }  ❌ if (x) return;
+csharp_prefer_braces = true:suggestion
+
+# Vérification de null : ✅ if (x is null)  ❌ if (x.GetType() == typeof(...))
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+
+# Création implicite quand le type est évident : ✅ Money m = new(0)  ❌ Money m = new Money(0)
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
+
+# ──────────────────────────────────────────────────────────────────────
+# 📦 Directives using
+# ──────────────────────────────────────────────────────────────────────
+
+# Les using "System.*" apparaissent en premier dans la liste.
+dotnet_sort_system_directives_first = true
+
+# Pas de ligne vide entre les groupes de using.
+dotnet_separate_import_directive_groups = false
+
+# Les using sont placés EN DEHORS du namespace (en haut du fichier).
+# ✅ using System; namespace Solid.With.Srp; ...
+# ❌ namespace Solid.With.Srp { using System; ... }
+csharp_using_directive_placement = outside_namespace:warning
+
+# ──────────────────────────────────────────────────────────────────────
+# 📏 Formatage — Sauts de ligne et indentation (style Allman)
+# ──────────────────────────────────────────────────────────────────────
+
+# Accolade ouvrante "{" toujours sur une NOUVELLE ligne (style Allman / C# standard).
+# ✅ public void Do()         ❌ public void Do() {
+#    {                             ...
+#        ...                  }
+#    }
+csharp_new_line_before_open_brace = all
+
+# "else", "catch", "finally" sur une nouvelle ligne après "}".
+# ✅ }                        ❌ } else {
+#    else                         ...
+#    {                        }
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# Chaque membre d'un initialiseur d'objet / type anonyme sur sa propre ligne.
+# ✅ new Order                ❌ new Order { Email = "...", Items = [] }
+#    {
+#        Email = "...",
+#        Items = []
+#    }
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+
+# ──────────────────────────────────────────────────────────────────────
+# 📏 Formatage — Indentation des switch
+# ──────────────────────────────────────────────────────────────────────
+
+# Le contenu d'un "case" est indenté à l'intérieur du switch.
+csharp_indent_case_contents = true
+
+# Les labels "case:" sont indentés à l'intérieur du switch.
+csharp_indent_switch_labels = true
+
+# ──────────────────────────────────────────────────────────────────────
+# 📏 Formatage — Espaces
+# ──────────────────────────────────────────────────────────────────────
+
+# Pas d'espace après un cast : ✅ (int)value  ❌ (int) value
+csharp_space_after_cast = false
+
+# Espace après les mots-clés de contrôle : ✅ if (x)  ❌ if(x)
+csharp_space_after_keywords_in_control_flow_statements = true
+
+# Pas d'espace dans les parenthèses de déclaration/appel de méthode.
+# ✅ void Do(int x)   ❌ void Do( int x )
+# ✅ Do(42)            ❌ Do( 42 )
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+
+# ══════════════════════════════════════════════════════════════════════
+# 🏷️ Conventions de nommage
+#
+#    Chaque convention se compose de 3 éléments :
+#    1. Rule   → quand appliquer (sévérité + lien vers symbols et style)
+#    2. Symbols → à quels symboles du code ça s'applique (kind, accessibilité)
+#    3. Style  → comment le nom doit être formé (préfixe, casing)
+# ══════════════════════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────────────────────
+# 🔤 Interfaces : doivent commencer par "I" + PascalCase
+#    ✅ IOrderRepository, IDiscountStrategy
+#    ❌ OrderRepository, orderRepository
+# ──────────────────────────────────────────────────────────────────────
+
+# 1. Rule : les interfaces doivent suivre le style "begins_with_i" (⚠️ warning)
+dotnet_naming_rule.interface_should_begin_with_i.severity = warning
+dotnet_naming_rule.interface_should_begin_with_i.symbols = interface
+dotnet_naming_rule.interface_should_begin_with_i.style = begins_with_i
+
+# 2. Symbols : s'applique aux interfaces
+dotnet_naming_symbols.interface.applicable_kinds = interface
+
+# 3. Style : préfixe "I" + PascalCase
+dotnet_naming_style.begins_with_i.required_prefix = I
+dotnet_naming_style.begins_with_i.capitalization = pascal_case
+
+# ──────────────────────────────────────────────────────────────────────
+# 🔤 Champs privés : doivent commencer par "_" + camelCase
+#    ✅ _records, _sentMessages, _savedOrders
+#    ❌ records, Records, m_records
+# ──────────────────────────────────────────────────────────────────────
+
+# 1. Rule : les champs privés doivent suivre le style "underscore_prefix" (💡 suggestion)
+dotnet_naming_rule.private_fields_should_begin_with_underscore.severity = suggestion
+dotnet_naming_rule.private_fields_should_begin_with_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_should_begin_with_underscore.style = underscore_prefix
+
+# 2. Symbols : s'applique aux champs (field) privés uniquement
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+# 3. Style : préfixe "_" + camelCase
+dotnet_naming_style.underscore_prefix.required_prefix = _
+dotnet_naming_style.underscore_prefix.capitalization = camel_case
