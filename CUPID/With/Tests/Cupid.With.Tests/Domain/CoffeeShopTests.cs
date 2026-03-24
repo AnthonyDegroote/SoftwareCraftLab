@@ -20,8 +20,6 @@ public class CoffeeShopTests
         store = new InMemoryOrderStore();
         notifier = new InMemoryConfirmationNotifier();
         return new CoffeeShop(
-            new OrderValidator(),
-            new OrderPricing(),
             new TaxCalculation(0.20m),
             store,
             notifier);

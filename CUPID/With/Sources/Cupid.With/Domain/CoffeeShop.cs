@@ -39,8 +39,6 @@ public interface IConfirmationNotifier
 /// Composable : dépend de briques simples, composées ici.
 /// </summary>
 public class CoffeeShop(
-    OrderValidator validator,
-    OrderPricing pricing,
     TaxCalculation tax,
     IOrderStore store,
     IConfirmationNotifier notifier)
