@@ -1,14 +1,58 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  Directory.Packages.props — Gestion centralisée des versions         ║
+  ║  (Central Package Management / CPM)                                  ║
+  ║                                                                      ║
+  ║  Ce fichier centralise les versions de TOUS les packages NuGet       ║
+  ║  utilisés dans la solution. Les .csproj déclarent les packages       ║
+  ║  dont ils ont besoin (PackageReference) mais SANS numéro de version  ║
+  ║  — la version est définie ICI, une seule fois.                       ║
+  ║                                                                      ║
+  ║  Avantages :                                                         ║
+  ║    • Une seule source de vérité pour les versions                    ║
+  ║    • Mise à jour d'un package = modifier UNE ligne (pas 4 .csproj)   ║
+  ║    • Garantit que tous les projets utilisent la même version         ║
+  ║    • Réduit les conflits de merge dans les .csproj                   ║
+  ║                                                                      ║
+  ║  📖 Doc : https://learn.microsoft.com/nuget/consume-packages/       ║
+  ║           Central-Package-Management                                 ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
 <Project>
 
   <PropertyGroup>
+    <!--
+      🔑 Active le mode Central Package Management.
+         Sans cette propriété, MSBuild attend les versions dans chaque .csproj.
+         Avec cette propriété, les versions sont lues depuis ce fichier.
+    -->
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
+  <!--
+    📦 Versions centralisées des packages NuGet
+
+       Chaque <PackageVersion> déclare la version "officielle" du package
+       pour toute la solution. Dans les .csproj, on écrit simplement :
+
+         <PackageReference Include="xunit" />
+
+       …sans attribut Version. MSBuild résout la version depuis ici.
+  -->
   <ItemGroup>
+
+    <!-- 📊 Coverlet : collecteur de couverture de code pour les tests -->
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+
+    <!-- 🧪 Microsoft Test SDK : infrastructure de base pour exécuter les tests dans VS / dotnet test -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+
+    <!-- ✅ xUnit : framework de tests unitaires (assertions, [Fact], [Theory]…) -->
     <PackageVersion Include="xunit" Version="2.9.3" />
+
+    <!-- 🔌 xUnit Runner VS : adaptateur pour découvrir et exécuter les tests xUnit dans Visual Studio -->
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+
   </ItemGroup>
 
 </Project>

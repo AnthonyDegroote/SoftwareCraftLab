@@ -1,9 +1,60 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  Directory.Build.props — Propriétés MSBuild partagées                ║
+  ║                                                                      ║
+  ║  Ce fichier est automatiquement importé par MSBuild dans TOUS les    ║
+  ║  projets (.csproj) situés dans ce dossier et ses sous-dossiers.      ║
+  ║                                                                      ║
+  ║  Avantage : centraliser les propriétés communes en UN seul endroit   ║
+  ║  au lieu de les dupliquer dans chaque .csproj.                       ║
+  ║                                                                      ║
+  ║  📖 Doc : https://learn.microsoft.com/dotnet/core/project-sdk/      ║
+  ║           overview#directory-build-props                             ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
 <Project>
 
   <PropertyGroup>
+
+    <!--
+      🎯 Framework cible : .NET 10
+         Tous les projets de la solution compilent pour le même framework.
+         Changer cette ligne met à jour TOUS les projets d'un coup.
+    -->
     <TargetFramework>net10.0</TargetFramework>
+
+    <!--
+      📦 Usings implicites : les namespaces les plus courants (System,
+         System.Collections.Generic, System.Linq, System.Threading.Tasks…)
+         sont importés automatiquement — plus besoin de les écrire en haut
+         de chaque fichier .cs.
+    -->
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <!--
+      🔒 Types nullables : le compilateur analyse les références nullables
+         et émet des warnings si une variable peut être null sans vérification.
+         Aide à prévenir les NullReferenceException dès la compilation.
+         ✅ string  = jamais null       string? = peut être null
+    -->
     <Nullable>enable</Nullable>
+
+    <!--
+      ⚠️→❌ Warnings traités comme des erreurs : aucun warning toléré.
+         Force à résoudre immédiatement chaque avertissement du compilateur,
+         des analyseurs (xUnit, .NET analyzers) et du style (.editorconfig).
+         Résultat : un code propre en permanence, pas de dette technique cachée.
+    -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!--
+      📏 Application du style de code au build : les règles définies dans
+         .editorconfig sont vérifiées pendant la compilation (pas seulement
+         dans l'IDE). Un style non respecté devient un warning → une erreur
+         (grâce à TreatWarningsAsErrors ci-dessus).
+    -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
   </PropertyGroup>
 
 </Project>

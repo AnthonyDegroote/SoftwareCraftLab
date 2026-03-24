@@ -58,8 +58,8 @@ public class WorkersTests
     {
         var robot = new RobotWorker();
 
-        Assert.IsAssignableFrom<IWorkable>(robot);
-        Assert.IsNotType<IFeedable>(robot);     // Robot n'implémente PAS IFeedable
-        Assert.IsNotType<ISleepable>(robot);     // Robot n'implémente PAS ISleepable
+        Assert.IsType<IWorkable>(robot, exactMatch: false);
+        Assert.IsNotType<IFeedable>(robot, exactMatch: false);     // Robot n'implémente PAS IFeedable
+        Assert.IsNotType<ISleepable>(robot, exactMatch: false);     // Robot n'implémente PAS ISleepable
     }
 }
