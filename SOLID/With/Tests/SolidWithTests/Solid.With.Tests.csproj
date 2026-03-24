@@ -22,8 +22,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Sources\Solid.With\Solid.With.csproj" />
-  </ItemGroup>
-
 </Project>
