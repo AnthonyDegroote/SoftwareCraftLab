@@ -15,8 +15,10 @@ public class OrderService
     private readonly List<string> _savedOrders = [];
     private readonly List<string> _sentEmails = [];
 
-    public List<string> SavedOrders => _savedOrders;
-    public List<string> SentEmails => _sentEmails;
+    // ANTI-PATTERN : Les listes internes sont exposées en lecture seule,
+    // mais l'encapsulation reste faible car toute la logique est dans cette classe.
+    public IReadOnlyList<string> SavedOrders => _savedOrders;
+    public IReadOnlyList<string> SentEmails => _sentEmails;
 
     /// <summary>
     /// Traite une commande de bout en bout :
