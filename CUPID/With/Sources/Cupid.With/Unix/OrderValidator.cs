@@ -48,8 +48,7 @@ public class OrderValidator
         {
             if (line.Quantity <= 0)
             {
-                return OrderValidationResult.Failure(
-                    $"La quantité de '{line.Coffee.Name}' doit être positive.");
+                return OrderValidationResult.Failure($"La quantité de '{line.Coffee.Name}' doit être positive.");
             }
         }
 
