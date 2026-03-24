@@ -25,7 +25,7 @@ public class OrderValidator
     /// <summary>
     /// Valide la commande : client, articles, quantités.
     /// </summary>
-    public OrderValidationResult Validate(CoffeeOrder order)
+    public static OrderValidationResult Validate(CoffeeOrder order)
     {
         ArgumentNullException.ThrowIfNull(order);
 

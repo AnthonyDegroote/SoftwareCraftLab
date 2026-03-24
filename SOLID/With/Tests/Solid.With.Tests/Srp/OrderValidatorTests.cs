@@ -18,7 +18,7 @@ public class OrderValidatorTests
     [Fact]
     public void WhenOrderIsValidThenReturnsSuccess()
     {
-        var result = _validator.Validate(CreateValidOrder());
+        var result = OrderValidator.Validate(CreateValidOrder());
 
         Assert.True(result.IsValid);
     }
@@ -28,7 +28,7 @@ public class OrderValidatorTests
     {
         var order = new Order("", [new OrderItem("Clavier", 50m, 1)]);
 
-        var result = _validator.Validate(order);
+        var result = OrderValidator.Validate(order);
 
         Assert.False(result.IsValid);
         Assert.Contains("e-mail", result.ErrorMessage);
@@ -39,7 +39,7 @@ public class OrderValidatorTests
     {
         var order = new Order("client@example.com", []);
 
-        var result = _validator.Validate(order);
+        var result = OrderValidator.Validate(order);
 
         Assert.False(result.IsValid);
         Assert.Contains("au moins un article", result.ErrorMessage);
@@ -50,7 +50,7 @@ public class OrderValidatorTests
     {
         var order = new Order("client@example.com", [new OrderItem("Clavier", 50m, 0)]);
 
-        var result = _validator.Validate(order);
+        var result = OrderValidator.Validate(order);
 
         Assert.False(result.IsValid);
         Assert.Contains("quantité", result.ErrorMessage);
@@ -61,15 +61,12 @@ public class OrderValidatorTests
     {
         var order = new Order("client@example.com", [new OrderItem("Clavier", -10m, 1)]);
 
-        var result = _validator.Validate(order);
+        var result = OrderValidator.Validate(order);
 
         Assert.False(result.IsValid);
         Assert.Contains("prix unitaire", result.ErrorMessage);
     }
 
     [Fact]
-    public void WhenOrderIsNullThenThrowsArgumentNull()
-    {
-        Assert.Throws<ArgumentNullException>(() => _validator.Validate(null!));
-    }
+    public void WhenOrderIsNullThenThrowsArgumentNull() => Assert.Throws<ArgumentNullException>(() => OrderValidator.Validate(null!));
 }

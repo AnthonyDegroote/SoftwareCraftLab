@@ -13,7 +13,7 @@ public class PriceCalculator
     /// <summary>
     /// Calcule le prix total brut de la commande.
     /// </summary>
-    public decimal CalculateTotal(Order order)
+    public static decimal CalculateTotal(Order order)
     {
         ArgumentNullException.ThrowIfNull(order);
         return order.Items.Sum(item => item.UnitPrice * item.Quantity);

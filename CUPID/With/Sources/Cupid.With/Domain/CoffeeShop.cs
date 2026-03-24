@@ -53,7 +53,7 @@ public class CoffeeShop(
     {
         ArgumentNullException.ThrowIfNull(order);
 
-        var validation = validator.Validate(order);
+        var validation = OrderValidator.Validate(order);
         if (!validation.IsValid)
         {
             throw new InvalidOperationException(validation.Error);
@@ -61,7 +61,7 @@ public class CoffeeShop(
 
         // CUPID Composable : chaque brique est appelée en séquence,
         // chacune prend l'output de la précédente — pas de contexte mutable partagé.
-        var subTotal = pricing.CalculateSubTotal(order.Lines);
+        var subTotal = OrderPricing.CalculateSubTotal(order.Lines);
         var taxAmount = tax.CalculateTax(subTotal);
         var total = subTotal + taxAmount;
 

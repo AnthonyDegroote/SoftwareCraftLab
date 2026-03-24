@@ -67,10 +67,7 @@ public class InMemoryOrderRepository : IOrderRepository
     private readonly List<string> _records = [];
     public IReadOnlyList<string> Records => _records;
 
-    public void Save(Order order, decimal total)
-    {
-        _records.Add($"Commande de {order.CustomerEmail} : {total:C}");
-    }
+    public void Save(Order order, decimal total) => _records.Add($"Commande de {order.CustomerEmail} : {total:C}");
 }
 
 /// <summary>
@@ -81,8 +78,5 @@ public class InMemoryNotificationService : INotificationService
     private readonly List<string> _sentMessages = [];
     public IReadOnlyList<string> SentMessages => _sentMessages;
 
-    public void SendConfirmation(string email, decimal total)
-    {
-        _sentMessages.Add($"Confirmation envoyée à {email} pour {total:C}");
-    }
+    public void SendConfirmation(string email, decimal total) => _sentMessages.Add($"Confirmation envoyée à {email} pour {total:C}");
 }

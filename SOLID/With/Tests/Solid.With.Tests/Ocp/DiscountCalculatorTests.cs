@@ -16,7 +16,7 @@ public class DiscountCalculatorTests
     {
         var strategy = new PercentageDiscount(10);
 
-        decimal result = _calculator.ApplyDiscount(100m, strategy);
+        decimal result = DiscountCalculator.ApplyDiscount(100m, strategy);
 
         Assert.Equal(90m, result);
     }
@@ -30,7 +30,7 @@ public class DiscountCalculatorTests
     {
         var strategy = new FixedAmountDiscount(discountAmount);
 
-        decimal result = _calculator.ApplyDiscount(amount, strategy);
+        decimal result = DiscountCalculator.ApplyDiscount(amount, strategy);
 
         Assert.Equal(expected, result);
     }
@@ -40,7 +40,7 @@ public class DiscountCalculatorTests
     {
         var strategy = new NoDiscount();
 
-        decimal result = _calculator.ApplyDiscount(100m, strategy);
+        decimal result = DiscountCalculator.ApplyDiscount(100m, strategy);
 
         Assert.Equal(100m, result);
     }
@@ -52,7 +52,7 @@ public class DiscountCalculatorTests
     {
         var strategy = new BuyTwoGetOneFreeDiscount();
 
-        decimal result = _calculator.ApplyDiscount(150m, strategy);
+        decimal result = DiscountCalculator.ApplyDiscount(150m, strategy);
 
         Assert.Equal(100m, result);
     }

@@ -12,7 +12,7 @@ public class WorkersTests
     [Fact]
     public void WhenHumanWorkerWorksThenReturnsMessage()
     {
-        IWorker worker = new HumanWorker();
+        var worker = new HumanWorker();
 
         Assert.Equal("L'humain travaille.", worker.Work());
     }
@@ -20,7 +20,7 @@ public class WorkersTests
     [Fact]
     public void WhenHumanWorkerEatsThenReturnsMessage()
     {
-        IWorker worker = new HumanWorker();
+        var worker = new HumanWorker();
 
         Assert.Equal("L'humain mange.", worker.Eat());
     }
@@ -28,7 +28,7 @@ public class WorkersTests
     [Fact]
     public void WhenRobotWorkerWorksThenReturnsMessage()
     {
-        IWorker worker = new RobotWorker();
+        var worker = new RobotWorker();
 
         Assert.Equal("Le robot travaille.", worker.Work());
     }
@@ -38,7 +38,7 @@ public class WorkersTests
     [Fact]
     public void WhenRobotWorkerEatsThenThrowsNotSupported()
     {
-        IWorker worker = new RobotWorker();
+        var worker = new RobotWorker();
 
         Assert.Throws<NotSupportedException>(() => worker.Eat());
     }
@@ -46,7 +46,7 @@ public class WorkersTests
     [Fact]
     public void WhenRobotWorkerSleepsThenThrowsNotSupported()
     {
-        IWorker worker = new RobotWorker();
+        var worker = new RobotWorker();
 
         Assert.Throws<NotSupportedException>(() => worker.Sleep());
     }
@@ -54,7 +54,7 @@ public class WorkersTests
     [Fact]
     public void WhenRobotWorkerAttendsMeetingThenThrowsNotSupported()
     {
-        IWorker worker = new RobotWorker();
+        var worker = new RobotWorker();
 
         Assert.Throws<NotSupportedException>(() => worker.AttendMeeting());
     }

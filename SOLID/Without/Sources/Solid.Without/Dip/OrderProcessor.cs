@@ -36,10 +36,7 @@ public class FileOrderRepository
 
     public IReadOnlyList<string> Records => _records;
 
-    public void Save(Order order, decimal total)
-    {
-        _records.Add($"[FICHIER] Commande de {order.CustomerEmail} : {total:C}");
-    }
+    public void Save(Order order, decimal total) => _records.Add($"[FICHIER] Commande de {order.CustomerEmail} : {total:C}");
 }
 
 // ANTI-PATTERN : classe concrète bas niveau — aucune abstraction
@@ -50,8 +47,5 @@ public class SmtpEmailService
 
     public IReadOnlyList<string> SentEmails => _sentEmails;
 
-    public void SendConfirmation(string email, decimal total)
-    {
-        _sentEmails.Add($"[SMTP] Confirmation envoyée à {email} pour {total:C}");
-    }
+    public void SendConfirmation(string email, decimal total) => _sentEmails.Add($"[SMTP] Confirmation envoyée à {email} pour {total:C}");
 }

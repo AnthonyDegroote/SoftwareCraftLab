@@ -14,7 +14,7 @@ public class OrderValidator
     /// <summary>
     /// Vérifie que la commande est valide (articles, e-mail, quantités, prix).
     /// </summary>
-    public OrderValidationResult Validate(Order order)
+    public static OrderValidationResult Validate(Order order)
     {
         ArgumentNullException.ThrowIfNull(order);
 

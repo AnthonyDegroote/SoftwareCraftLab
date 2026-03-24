@@ -11,15 +11,15 @@ public class PriceCalculatorTests
 {
     private readonly PriceCalculator _calculator = new();
 
-    private static readonly Coffee Espresso = new("Espresso", CoffeeSize.Small, new Money(2.50m));
-    private static readonly Coffee Latte = new("Latte", CoffeeSize.Medium, new Money(4.00m));
+    private static readonly Coffee _espresso = new("Espresso", CoffeeSize.Small, new Money(2.50m));
+    private static readonly Coffee _latte = new("Latte", CoffeeSize.Medium, new Money(4.00m));
 
     [Fact]
     public void WhenCalculateSubTotalThenSumsAllLines()
     {
-        var lines = new[] { new OrderLine(Espresso, 2), new OrderLine(Latte, 1) };
+        var lines = new[] { new OrderLine(_espresso, 2), new OrderLine(_latte, 1) };
 
-        var subTotal = _calculator.CalculateSubTotal(lines);
+        var subTotal = PriceCalculator.CalculateSubTotal(lines);
 
         // 2.50×2 + 4.00×1 = 9.00
         Assert.Equal(9.00m, subTotal.Amount);
@@ -29,11 +29,11 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenCalledMultipleTimesThenSameResult()
     {
-        var lines = new[] { new OrderLine(Espresso, 2) };
+        var lines = new[] { new OrderLine(_espresso, 2) };
 
-        var result1 = _calculator.CalculateSubTotal(lines);
-        var result2 = _calculator.CalculateSubTotal(lines);
-        var result3 = _calculator.CalculateSubTotal(lines);
+        var result1 = PriceCalculator.CalculateSubTotal(lines);
+        var result2 = PriceCalculator.CalculateSubTotal(lines);
+        var result3 = PriceCalculator.CalculateSubTotal(lines);
 
         Assert.Equal(result1, result2);
         Assert.Equal(result2, result3);
@@ -44,7 +44,7 @@ public class PriceCalculatorTests
     {
         var subTotal = new Money(10.00m);
 
-        var tax = _calculator.CalculateTax(subTotal, 0.20m);
+        var tax = PriceCalculator.CalculateTax(subTotal, 0.20m);
 
         Assert.Equal(2.00m, tax.Amount);
     }
@@ -55,7 +55,7 @@ public class PriceCalculatorTests
         var subTotal = new Money(10.00m);
         var tax = new Money(2.00m);
 
-        var total = _calculator.CalculateTotal(subTotal, tax);
+        var total = PriceCalculator.CalculateTotal(subTotal, tax);
 
         Assert.Equal(12.00m, total.Amount);
     }
@@ -64,9 +64,9 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenLargeOrderThenNoHiddenDiscount()
     {
-        var lines = new[] { new OrderLine(Espresso, 100) };
+        var lines = new[] { new OrderLine(_espresso, 100) };
 
-        var subTotal = _calculator.CalculateSubTotal(lines);
+        var subTotal = PriceCalculator.CalculateSubTotal(lines);
 
         // 2.50 × 100 = 250.00, pas de remise cachée
         Assert.Equal(250.00m, subTotal.Amount);

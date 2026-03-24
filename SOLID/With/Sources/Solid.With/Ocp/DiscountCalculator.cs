@@ -51,7 +51,7 @@ public class DiscountCalculator
     /// <summary>
     /// Applique la stratégie de remise au montant donné.
     /// </summary>
-    public decimal ApplyDiscount(decimal amount, IDiscountStrategy strategy)
+    public static decimal ApplyDiscount(decimal amount, IDiscountStrategy strategy)
     {
         ArgumentNullException.ThrowIfNull(strategy);
         return strategy.Apply(amount);

@@ -22,7 +22,7 @@ public class PriceCalculator
     /// <summary>
     /// Calcule le sous-total. Appeler 10 fois = 10 fois le même résultat.
     /// </summary>
-    public Money CalculateSubTotal(IReadOnlyList<OrderLine> lines)
+    public static Money CalculateSubTotal(IReadOnlyList<OrderLine> lines)
     {
         ArgumentNullException.ThrowIfNull(lines);
         return lines.Aggregate(Money.Zero, (sum, line) => sum + line.LineTotal);
@@ -32,7 +32,7 @@ public class PriceCalculator
     /// Calcule la taxe à partir du sous-total et du taux.
     /// Tous les paramètres sont explicites — pas de magie cachée.
     /// </summary>
-    public Money CalculateTax(Money subTotal, decimal taxRate)
+    public static Money CalculateTax(Money subTotal, decimal taxRate)
     {
         ArgumentNullException.ThrowIfNull(subTotal);
         return subTotal * taxRate;
@@ -41,5 +41,5 @@ public class PriceCalculator
     /// <summary>
     /// Calcule le total final (sous-total + taxe).
     /// </summary>
-    public Money CalculateTotal(Money subTotal, Money tax) => subTotal + tax;
+    public static Money CalculateTotal(Money subTotal, Money tax) => subTotal + tax;
 }

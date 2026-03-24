@@ -22,7 +22,7 @@ public class OrderPricing
     /// <summary>
     /// Calcule le sous-total en additionnant les totaux de chaque ligne.
     /// </summary>
-    public Money CalculateSubTotal(IReadOnlyList<OrderLine> lines)
+    public static Money CalculateSubTotal(IReadOnlyList<OrderLine> lines)
     {
         ArgumentNullException.ThrowIfNull(lines);
         return lines.Aggregate(Money.Zero, (sum, line) => sum + line.LineTotal);

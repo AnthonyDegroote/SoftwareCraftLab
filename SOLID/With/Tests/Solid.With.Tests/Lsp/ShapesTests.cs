@@ -20,10 +20,7 @@ public class ShapesTests
 
     [Theory]
     [MemberData(nameof(ShapeAreaCases))]
-    public void WhenCalculateAreaThenReturnsCorrectValue(IShape shape, double expectedArea)
-    {
-        Assert.Equal(expectedArea, shape.CalculateArea(), precision: 10);
-    }
+    public void WhenCalculateAreaThenReturnsCorrectValue(IShape shape, double expectedArea) => Assert.Equal(expectedArea, shape.CalculateArea(), precision: 10);
 
     // PRINCIPE LSP : on peut traiter une collection de IShape de manière uniforme.
     // Chaque forme respecte le contrat — pas de surprise, pas d'exception.

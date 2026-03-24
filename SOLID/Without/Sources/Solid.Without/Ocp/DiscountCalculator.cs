@@ -10,7 +10,7 @@ public class DiscountCalculator
     /// Calcule le montant après remise.
     /// Ajouter un nouveau type de remise impose de modifier ce code existant.
     /// </summary>
-    public decimal ApplyDiscount(decimal amount, string discountType, decimal discountValue)
+    public static decimal ApplyDiscount(decimal amount, string discountType, decimal discountValue)
     {
         // ANTI-PATTERN : switch fermé — chaque nouvelle remise = modification du code source
         return discountType switch

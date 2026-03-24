@@ -16,7 +16,7 @@ public class PriceCalculatorTests
     {
         var order = new Order("client@example.com", [new OrderItem("Clavier", 50m, 3)]);
 
-        decimal total = _calculator.CalculateTotal(order);
+        decimal total = PriceCalculator.CalculateTotal(order);
 
         Assert.Equal(150m, total);
     }
@@ -27,15 +27,12 @@ public class PriceCalculatorTests
         var order = new Order("client@example.com",
             [new OrderItem("Clavier", 50m, 2), new OrderItem("Souris", 25m, 1)]);
 
-        decimal total = _calculator.CalculateTotal(order);
+        decimal total = PriceCalculator.CalculateTotal(order);
 
         // 50×2 + 25×1 = 125
         Assert.Equal(125m, total);
     }
 
     [Fact]
-    public void WhenOrderIsNullThenThrowsArgumentNull()
-    {
-        Assert.Throws<ArgumentNullException>(() => _calculator.CalculateTotal(null!));
-    }
+    public void WhenOrderIsNullThenThrowsArgumentNull() => Assert.Throws<ArgumentNullException>(() => PriceCalculator.CalculateTotal(null!));
 }
