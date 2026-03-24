@@ -400,11 +400,11 @@ Les tests du projet `With` montrent les **avantages** de SOLID :
 graph LR
     subgraph "SOLID = code sain 🌱"
         direction TB
-        S["🇸 SRP<br/>1 classe = 1 rôle"]
-        O["🇴 OCP<br/>Étendre sans modifier"]
-        L["🇱 LSP<br/>Substituable sans surprise"]
-        I["🇮 ISP<br/>Interfaces ciblées"]
-        D["🇩 DIP<br/>Dépendre des abstractions"]
+        S["SRP<br/>1 classe = 1 rôle"]
+        O["OCP<br/>Étendre sans modifier"]
+        L["LSP<br/>Substituable sans surprise"]
+        I["ISP<br/>Interfaces ciblées"]
+        D["DIP<br/>Dépendre des abstractions"]
     end
 
     S --> RESULT["✅ Testable<br/>✅ Extensible<br/>✅ Maintenable<br/>✅ Robuste"]
