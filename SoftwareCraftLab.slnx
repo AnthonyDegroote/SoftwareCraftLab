@@ -1,1 +1,21 @@
-<Solution />
+<Solution>
+  <Folder Name="/01-SOLID/" />
+  <Folder Name="/01-SOLID/01-Without/" />
+  <Folder Name="/01-SOLID/01-Without/Sources/">
+    <Project Path="SOLID/With/Sources/Solid.With/Solid.With.csproj" Id="f947dc30-3c9c-4aca-aa57-f473b0f5c574" />
+  </Folder>
+  <Folder Name="/01-SOLID/01-Without/Tests/">
+    <Project Path="SOLID/Without/Tests/SolidWithoutTests/Solid.Without.Tests.csproj" Id="2ed04dc4-6b86-46f6-80a6-52f86e3e0917" />
+  </Folder>
+  <Folder Name="/01-SOLID/02-With/" />
+  <Folder Name="/01-SOLID/02-With/Sources/">
+    <Project Path="SOLID/Without/Sources/Solid.Without/Solid.Without.csproj" Id="daa7af27-e3f7-438d-ba47-480a83dc9701" />
+  </Folder>
+  <Folder Name="/01-SOLID/02-With/Tests/">
+    <Project Path="SOLID/With/Tests/SolidWithTests/Solid.With.Tests.csproj" Id="869d835b-0f0a-4369-a4d7-7690bbd55ddb" />
+  </Folder>
+  <Folder Name="/Éléments de solution/">
+    <File Path="../ReadMe.md" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>
