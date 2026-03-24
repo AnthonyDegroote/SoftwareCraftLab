@@ -1,6 +1,6 @@
 <Solution>
   <Folder Name="/01-SOLID/">
-    <File Path="CUPID/README.FR.md" />
+    <File Path="SOLID/README.FR.md" />
   </Folder>
   <Folder Name="/01-SOLID/01-Without/" />
   <Folder Name="/01-SOLID/01-Without/Sources/">
