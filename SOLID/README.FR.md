@@ -37,7 +37,7 @@ SOLID/
 │   │   ├── Lsp/                   3️⃣ Substitution de Liskov
 │   │   ├── Isp/                   4️⃣ Ségrégation des interfaces
 │   │   └── Dip/                   5️⃣ Inversion des dépendances
-│   └── Tests/SolidWithTests/      🧪 32 tests
+│   └── Tests/SolidWithTests/      🧪 29 tests
 │
 └── Without/                       ❌ Viole SOLID
     ├── Sources/Solid.Without/
@@ -47,7 +47,7 @@ SOLID/
     │   ├── Lsp/                   3️⃣ Rectangle/Square piégeux
     │   ├── Isp/                   4️⃣ Interface fourre-tout
     │   └── Dip/                   5️⃣ Dépendances en dur
-    └── Tests/SolidWithoutTests/   🧪 22 tests
+    └── Tests/SolidWithoutTests/   🧪 25 tests
 ```
 
 ---
@@ -378,7 +378,7 @@ public class OrderProcessor(
 dotnet test
 ```
 
-> **54 tests** — 32 pour `With` (SOLID) + 22 pour `Without` (anti-patterns).
+> **54 tests** — 29 pour `With` (SOLID) + 25 pour `Without` (anti-patterns).
 
 Les tests du projet `Without` montrent les **limites** des anti-patterns :
 - 🔴 Impossible de tester une responsabilité isolément (SRP)
