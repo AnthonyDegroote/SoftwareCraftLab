@@ -9,28 +9,20 @@ namespace Solid.With.Tests.Lsp;
 /// </summary>
 public class ShapesTests
 {
-    [Fact]
-    public void WhenRectangleThenAreaIsWidthTimesHeight()
+    // PRINCIPE LSP : chaque forme est substituable — [Theory] vérifie le contrat IShape
+    // pour toutes les implémentations en une seule méthode de test.
+    public static TheoryData<IShape, double> ShapeAreaCases => new()
     {
-        IShape shape = new Rectangle(5, 4);
+        { new Rectangle(5, 4), 20 },
+        { new Square(5), 25 },
+        { new Circle(3), Math.PI * 9 }
+    };
 
-        Assert.Equal(20, shape.CalculateArea());
-    }
-
-    [Fact]
-    public void WhenSquareThenAreaIsSideSquared()
+    [Theory]
+    [MemberData(nameof(ShapeAreaCases))]
+    public void WhenCalculateAreaThenReturnsCorrectValue(IShape shape, double expectedArea)
     {
-        IShape shape = new Square(5);
-
-        Assert.Equal(25, shape.CalculateArea());
-    }
-
-    [Fact]
-    public void WhenCircleThenAreaIsPiTimesRadiusSquared()
-    {
-        IShape shape = new Circle(3);
-
-        Assert.Equal(Math.PI * 9, shape.CalculateArea(), precision: 10);
+        Assert.Equal(expectedArea, shape.CalculateArea(), precision: 10);
     }
 
     // PRINCIPE LSP : on peut traiter une collection de IShape de manière uniforme.

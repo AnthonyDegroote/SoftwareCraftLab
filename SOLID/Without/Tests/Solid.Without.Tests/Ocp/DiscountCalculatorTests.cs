@@ -6,49 +6,26 @@ namespace Solid.Without.Tests.Ocp;
 /// Tests du DiscountCalculator (violation OCP).
 /// Les tests couvrent les cas existants, mais chaque nouveau type de remise
 /// nécessite de modifier le code source ET d'ajouter de nouveaux tests.
+///
+/// ANTI-PATTERN OCP : le switch fermé oblige à passer un string "discountType".
+/// [Theory] + [InlineData] permet de vérifier tous les cas de manière concise,
+/// mais on voit bien que chaque nouveau type de remise impose de modifier le switch.
 /// </summary>
 public class DiscountCalculatorTests
 {
     private readonly DiscountCalculator _calculator = new();
 
-    [Fact]
-    public void WhenPercentageDiscountThenReducesByPercentage()
+    [Theory]
+    [InlineData(100, "Percentage", 10, 90)]       // 10 % sur 100 → 90
+    [InlineData(100, "FixedAmount", 15, 85)]       // Remise fixe 15 sur 100 → 85
+    [InlineData(150, "BuyTwoGetOneFree", 0, 100)]  // 2+1 gratuit sur 150 → 100
+    [InlineData(100, "LoyaltyPoints", 50, 100)]    // Type inconnu → aucune remise
+    [InlineData(10, "FixedAmount", 20, 0)]         // Remise fixe dépasse le total → 0
+    public void WhenApplyDiscountThenReturnsExpectedAmount(
+        decimal amount, string discountType, decimal discountValue, decimal expected)
     {
-        decimal result = _calculator.ApplyDiscount(100m, "Percentage", 10m);
+        decimal result = _calculator.ApplyDiscount(amount, discountType, discountValue);
 
-        Assert.Equal(90m, result);
-    }
-
-    [Fact]
-    public void WhenFixedAmountDiscountThenSubtractsAmount()
-    {
-        decimal result = _calculator.ApplyDiscount(100m, "FixedAmount", 15m);
-
-        Assert.Equal(85m, result);
-    }
-
-    [Fact]
-    public void WhenBuyTwoGetOneFreeThenReducesByOneThird()
-    {
-        decimal result = _calculator.ApplyDiscount(150m, "BuyTwoGetOneFree", 0m);
-
-        Assert.Equal(100m, result);
-    }
-
-    [Fact]
-    public void WhenUnknownDiscountTypeThenNoDiscount()
-    {
-        decimal result = _calculator.ApplyDiscount(100m, "LoyaltyPoints", 50m);
-
-        // ANTI-PATTERN : "LoyaltyPoints" n'existe pas dans le switch → silencieusement ignoré
-        Assert.Equal(100m, result);
-    }
-
-    [Fact]
-    public void WhenFixedAmountExceedsTotalThenReturnsZero()
-    {
-        decimal result = _calculator.ApplyDiscount(10m, "FixedAmount", 20m);
-
-        Assert.Equal(0m, result);
+        Assert.Equal(expected, result);
     }
 }

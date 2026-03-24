@@ -19,6 +19,7 @@
   ╚══════════════════════════════════════════════════════════════════════╝
 -->
 <Project>
+
   <PropertyGroup>
     <!--
       🔑 Active le mode Central Package Management.
@@ -27,6 +28,7 @@
     -->
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
+
   <!--
     📦 Versions centralisées des packages NuGet
 
@@ -38,13 +40,19 @@
        …sans attribut Version. MSBuild résout la version depuis ici.
   -->
   <ItemGroup>
+
     <!-- 📊 Coverlet : collecteur de couverture de code pour les tests -->
     <PackageVersion Include="coverlet.collector" Version="8.0.1" />
+
     <!-- 🧪 Microsoft Test SDK : infrastructure de base pour exécuter les tests dans VS / dotnet test -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+
     <!-- ✅ xUnit : framework de tests unitaires (assertions, [Fact], [Theory]…) -->
     <PackageVersion Include="xunit" Version="2.9.2" />
+
     <!-- 🔌 xUnit Runner VS : adaptateur pour découvrir et exécuter les tests xUnit dans Visual Studio -->
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+
   </ItemGroup>
+
 </Project>

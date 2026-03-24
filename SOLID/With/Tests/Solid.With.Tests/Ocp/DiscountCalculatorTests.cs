@@ -21,14 +21,18 @@ public class DiscountCalculatorTests
         Assert.Equal(90m, result);
     }
 
-    [Fact]
-    public void WhenFixedAmountDiscountThenSubtractsAmount()
+    // [Theory] + [InlineData] : même stratégie (FixedAmountDiscount), plusieurs scénarios de montant.
+    [Theory]
+    [InlineData(100, 15, 85)]   // Remise fixe 15 sur 100 → 85
+    [InlineData(100, 200, 0)]   // Remise fixe dépasse le total → 0
+    public void WhenFixedAmountDiscountThenReturnsExpectedAmount(
+        decimal amount, decimal discountAmount, decimal expected)
     {
-        var strategy = new FixedAmountDiscount(15);
+        var strategy = new FixedAmountDiscount(discountAmount);
 
-        decimal result = _calculator.ApplyDiscount(100m, strategy);
+        decimal result = _calculator.ApplyDiscount(amount, strategy);
 
-        Assert.Equal(85m, result);
+        Assert.Equal(expected, result);
     }
 
     [Fact]
@@ -39,16 +43,6 @@ public class DiscountCalculatorTests
         decimal result = _calculator.ApplyDiscount(100m, strategy);
 
         Assert.Equal(100m, result);
-    }
-
-    [Fact]
-    public void WhenFixedAmountExceedsTotalThenReturnsZero()
-    {
-        var strategy = new FixedAmountDiscount(200);
-
-        decimal result = _calculator.ApplyDiscount(100m, strategy);
-
-        Assert.Equal(0m, result);
     }
 
     // PRINCIPE OCP : on peut ajouter une nouvelle stratégie sans modifier le calculateur.
