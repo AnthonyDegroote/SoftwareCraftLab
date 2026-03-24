@@ -255,8 +255,8 @@ public record Square(double Side) : IShape
 ```mermaid
 graph TB
     subgraph "❌ Without ISP"
-        FAT["🎒 IWorker<br/>──────────<br/>Work()<br/>Eat()<br/>Sleep()<br/>AttendMeeting()"]
-        H1["🧑 HumanWorker<br/>✅ Work ✅ Eat<br/>✅ Sleep ✅ Meeting"]
+        FAT["🎒 IWorker<br/>Work()<br/>Eat()<br/>Sleep()<br/>AttendMeeting()"]
+        H1["🧑 HumanWorker<br/>✅ Work<br/>✅ Eat<br/>✅ Sleep<br/> ✅ Meeting"]
         R1["🤖 RobotWorker<br/>✅ Work<br/>💥 Eat → throw<br/>💥 Sleep → throw<br/>💥 Meeting → throw"]
         FAT --> H1
         FAT --> R1
