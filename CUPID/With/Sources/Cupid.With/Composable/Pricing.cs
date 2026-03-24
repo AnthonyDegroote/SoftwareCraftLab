@@ -5,6 +5,13 @@ namespace Cupid.With.Composable;
 // CUPID Composable ✓ — Chaque composant a une petite surface d'API.
 //     Entrée → Sortie, sans contexte partagé mutable.
 //     Chaque brique est utilisable seule OU composée avec d'autres.
+//
+// NOTE PÉDAGOGIQUE : CalculateSubTotal() est volontairement identique à
+//     PriceCalculator.CalculateSubTotal (namespace Predictable).
+//     Les deux classes illustrent des propriétés CUPID DIFFÉRENTES :
+//       • Ici (Composable) : petite surface d'API, entrée → sortie, composable en pipeline.
+//       • Là-bas (Predictable) : fonction pure, déterministe, sans état caché.
+//     La duplication est intentionnelle pour que chaque exemple soit autonome.
 
 /// <summary>
 /// Calcule le sous-total d'une commande à partir de ses lignes.

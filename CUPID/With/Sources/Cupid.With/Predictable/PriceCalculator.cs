@@ -6,6 +6,13 @@ namespace Cupid.With.Predictable;
 //     Même entrée → même sortie, toujours, sans exception.
 //     Pas de compteur caché, pas de remise automatique surprise.
 //     Le comportement est entièrement déterminé par les paramètres.
+//
+// NOTE PÉDAGOGIQUE : CalculateSubTotal() est volontairement identique à
+//     OrderPricing.CalculateSubTotal (namespace Composable).
+//     Les deux classes illustrent des propriétés CUPID DIFFÉRENTES :
+//       • Ici (Predictable) : fonction pure, déterministe, sans état caché.
+//       • Là-bas (Composable) : petite surface d'API, entrée → sortie, composable en pipeline.
+//     La duplication est intentionnelle pour que chaque exemple soit autonome.
 
 /// <summary>
 /// Calcule le prix d'une commande. Fonction pure, sans état.
