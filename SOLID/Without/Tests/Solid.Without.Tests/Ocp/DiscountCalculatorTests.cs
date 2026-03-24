@@ -24,8 +24,10 @@ public class DiscountCalculatorTests
     public void WhenApplyDiscountThenReturnsExpectedAmount(
         decimal amount, string discountType, decimal discountValue, decimal expected)
     {
+        // Act
         decimal result = DiscountCalculator.ApplyDiscount(amount, discountType, discountValue);
 
+        // Assert
         Assert.Equal(expected, result);
     }
 }

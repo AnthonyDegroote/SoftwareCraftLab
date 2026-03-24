@@ -27,6 +27,7 @@ public class ShapesTests
     [Fact]
     public void WhenMixedShapesThenAllAreasAreCorrect()
     {
+        // Arrange
         IShape[] shapes =
         [
             new Rectangle(10, 5),
@@ -34,8 +35,10 @@ public class ShapesTests
             new Circle(1)
         ];
 
+        // Act
         double totalArea = shapes.Sum(s => s.CalculateArea());
 
+        // Assert
         // 50 + 16 + π ≈ 69.14
         Assert.Equal(50 + 16 + Math.PI, totalArea, precision: 10);
     }

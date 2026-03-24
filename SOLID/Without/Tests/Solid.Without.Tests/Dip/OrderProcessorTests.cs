@@ -21,8 +21,10 @@ public class OrderProcessorTests
     [Fact]
     public void WhenProcessOrderThenReturnsFormattedResult()
     {
+        // Act
         string result = _processor.Process(CreateValidOrder());
 
+        // Assert
         Assert.Contains("125", result);
     }
 
@@ -32,8 +34,10 @@ public class OrderProcessorTests
     [Fact]
     public void WhenProcessOrderThenResultContainsConfirmation()
     {
+        // Act
         string result = _processor.Process(CreateValidOrder());
 
+        // Assert
         Assert.Contains("Commande traitée", result);
     }
 }

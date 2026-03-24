@@ -11,6 +11,7 @@ public class OrderDtoBuilderTests
     [Fact]
     public void WhenBuildOrderThenAllPropertiesSet()
     {
+        // Act
         // ANTI-CUPID Idiomatic : 5 lignes pour créer une commande avec 1 article
         // En C# idiomatique : new CoffeeOrder("Alice", "alice@coffee.com", [new(espresso, 2)])
         var order = new OrderDtoBuilder()
@@ -19,6 +20,7 @@ public class OrderDtoBuilderTests
             .AddBeverage("Espresso", 2.50m, 2, "Small")
             .Build();
 
+        // Assert
         Assert.Equal("Alice", order.GetCustomerName());
         Assert.Equal("alice@coffee.com", order.GetCustomerEmail());
         Assert.Single(order.GetItems());
@@ -27,6 +29,7 @@ public class OrderDtoBuilderTests
     [Fact]
     public void WhenMultipleBeveragesThenAllAdded()
     {
+        // Act
         var order = new OrderDtoBuilder()
             .WithCustomerName("Bob")
             .WithCustomerEmail("bob@coffee.com")
@@ -34,6 +37,7 @@ public class OrderDtoBuilderTests
             .AddBeverage("Latte", 4.00m, 2, "Medium")
             .Build();
 
+        // Assert
         Assert.Equal(2, order.GetItems().Count);
     }
 
@@ -41,13 +45,16 @@ public class OrderDtoBuilderTests
     [Fact]
     public void WhenBuildCalledTwiceThenReturnsSameMutableInstance()
     {
+        // Arrange
         var builder = new OrderDtoBuilder()
             .WithCustomerName("Alice")
             .WithCustomerEmail("alice@coffee.com");
 
+        // Act
         var order1 = builder.Build();
         var order2 = builder.Build();
 
+        // Assert
         // Surprise ! C'est la même instance mutable
         Assert.Same(order1, order2);
     }

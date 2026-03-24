@@ -28,18 +28,22 @@ public class OrderOrchestratorTests
     [Fact]
     public void WhenProcessWithPriceStepThenContextContainsSubTotal()
     {
+        // Arrange
         // ANTI-CUPID Composable : on doit monter le pipeline complet pour tester le prix
         var steps = new IOrderProcessingStep[] { new PriceCalculationEngine() };
         var orchestrator = new OrderOrchestrator(steps);
 
+        // Act
         var context = orchestrator.Process(CreateOrder(3.00m, 2));
 
+        // Assert
         Assert.Equal(6.00m, context.SubTotal);
     }
 
     [Fact]
     public void WhenMultipleStepsThenAllMutateSharedContext()
     {
+        // Arrange
         var priceEngine = new PriceCalculationEngine();
         var persistence = new EntityPersistenceManager();
         var notification = new NotificationDispatcher();
@@ -47,8 +51,10 @@ public class OrderOrchestratorTests
         var steps = new IOrderProcessingStep[] { priceEngine, persistence, notification };
         var orchestrator = new OrderOrchestrator(steps);
 
+        // Act
         var context = orchestrator.Process(CreateOrder(5.00m, 1));
 
+        // Assert
         // Le contexte mutable a été modifié par chaque étape — couplage implicite
         Assert.Equal(5.00m, context.SubTotal);
         Assert.Single(persistence.DataStore);
@@ -59,6 +65,7 @@ public class OrderOrchestratorTests
     [Fact]
     public void WhenNotificationBeforePriceThenTotalIsZeroInNotification()
     {
+        // Arrange
         var notification = new NotificationDispatcher();
         var priceEngine = new PriceCalculationEngine();
 
@@ -66,8 +73,10 @@ public class OrderOrchestratorTests
         var steps = new IOrderProcessingStep[] { notification, priceEngine };
         var orchestrator = new OrderOrchestrator(steps);
 
+        // Act
         orchestrator.Process(CreateOrder(5.00m, 1));
 
+        // Assert
         Assert.Contains("amount=0", notification.DispatchedPayloads[0]);
     }
 }

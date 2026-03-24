@@ -18,18 +18,23 @@ public class OrderValidatorTests
     [Fact]
     public void WhenValidOrderThenSuccess()
     {
+        // Act
         var result = OrderValidator.Validate(CreateValidOrder());
 
+        // Assert
         Assert.True(result.IsValid);
     }
 
     [Fact]
     public void WhenMissingCustomerNameThenFailure()
     {
+        // Arrange
         var order = CreateValidOrder() with { CustomerName = "" };
 
+        // Act
         var result = OrderValidator.Validate(order);
 
+        // Assert
         Assert.False(result.IsValid);
         Assert.Contains("nom", result.Error);
     }
@@ -37,10 +42,13 @@ public class OrderValidatorTests
     [Fact]
     public void WhenMissingEmailThenFailure()
     {
+        // Arrange
         var order = CreateValidOrder() with { CustomerEmail = "" };
 
+        // Act
         var result = OrderValidator.Validate(order);
 
+        // Assert
         Assert.False(result.IsValid);
         Assert.Contains("e-mail", result.Error);
     }
@@ -48,10 +56,13 @@ public class OrderValidatorTests
     [Fact]
     public void WhenNoCoffeesThenFailure()
     {
+        // Arrange
         var order = CreateValidOrder() with { Lines = [] };
 
+        // Act
         var result = OrderValidator.Validate(order);
 
+        // Assert
         Assert.False(result.IsValid);
         Assert.Contains("au moins un café", result.Error);
     }
@@ -59,12 +70,15 @@ public class OrderValidatorTests
     [Fact]
     public void WhenZeroQuantityThenFailure()
     {
+        // Arrange
         var espresso = new Coffee("Espresso", CoffeeSize.Small, new Money(2.50m));
         var order = new CoffeeOrder("Alice", "alice@coffee.com",
             [new OrderLine(espresso, 0)]);
 
+        // Act
         var result = OrderValidator.Validate(order);
 
+        // Assert
         Assert.False(result.IsValid);
         Assert.Contains("quantité", result.Error);
     }

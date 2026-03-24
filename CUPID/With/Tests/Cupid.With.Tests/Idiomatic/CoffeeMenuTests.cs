@@ -12,8 +12,10 @@ public class CoffeeMenuTests
     [Fact]
     public void WhenEspressoSmallThenPriceIs250()
     {
+        // Act
         var espresso = CoffeeMenu.Espresso(CoffeeSize.Small);
 
+        // Assert
         Assert.Equal("Espresso", espresso.Name);
         Assert.Equal(CoffeeSize.Small, espresso.Size);
         Assert.Equal(2.50m, espresso.Price.Amount);
@@ -22,9 +24,11 @@ public class CoffeeMenuTests
     [Fact]
     public void WhenLatteMediumThenDefaultSizeIsMedium()
     {
+        // Act
         // CUPID Idiomatic : paramètre par défaut, pas de surcharge
         var latte = CoffeeMenu.Latte();
 
+        // Assert
         Assert.Equal(CoffeeSize.Medium, latte.Size);
         Assert.Equal(4.00m, latte.Price.Amount);
     }
@@ -32,8 +36,10 @@ public class CoffeeMenuTests
     [Fact]
     public void WhenCappuccinoLargeThenPriceIs400()
     {
+        // Act
         var cappuccino = CoffeeMenu.Cappuccino(CoffeeSize.Large);
 
+        // Assert
         Assert.Equal(4.00m, cappuccino.Price.Amount);
     }
 
@@ -41,8 +47,10 @@ public class CoffeeMenuTests
     [Fact]
     public void WhenCreateOrderLineThenQuantityAndTotalCorrect()
     {
+        // Act
         var line = CoffeeMenu.OrderLine(CoffeeMenu.Latte(), 2);
 
+        // Assert
         Assert.Equal(2, line.Quantity);
         Assert.Equal(8.00m, line.LineTotal.Amount);
     }
@@ -53,12 +61,14 @@ public class CoffeeMenuTests
     [Fact]
     public void WhenCreateFullOrderThenReadableAndConcise()
     {
+        // Act
         var order = new CoffeeOrder("Alice", "alice@coffee.com",
         [
             CoffeeMenu.OrderLine(CoffeeMenu.Espresso(), 1),
             CoffeeMenu.OrderLine(CoffeeMenu.Latte(CoffeeSize.Large), 2)
         ]);
 
+        // Assert
         Assert.Equal(2, order.Lines.Count);
         Assert.Equal("Alice", order.CustomerName);
     }

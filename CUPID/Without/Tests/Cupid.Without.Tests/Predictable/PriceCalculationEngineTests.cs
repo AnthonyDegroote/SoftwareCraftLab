@@ -26,11 +26,14 @@ public class PriceCalculationEngineTests
     [Fact]
     public void WhenCalculatePriceThenSubTotalIsSet()
     {
+        // Arrange
         var engine = new PriceCalculationEngine();
         var context = CreateContext(3.00m, 2);
 
+        // Act
         engine.Execute(context);
 
+        // Assert
         Assert.Equal(6.00m, context.SubTotal);
     }
 
@@ -38,12 +41,15 @@ public class PriceCalculationEngineTests
     [Fact]
     public void WhenCalledTwiceThenTotalAccumulates()
     {
+        // Arrange
         var engine = new PriceCalculationEngine();
         var context = CreateContext(3.00m, 2);
 
+        // Act
         engine.Execute(context);
         engine.Execute(context);
 
+        // Assert
         // Surprise ! Le total est 12.00 au lieu de 6.00
         Assert.Equal(12.00m, context.SubTotal);
     }
@@ -52,6 +58,7 @@ public class PriceCalculationEngineTests
     [Fact]
     public void WhenMoreThan5ItemsThenHiddenBulkDiscountApplied()
     {
+        // Arrange
         var engine = new PriceCalculationEngine();
         var order = new OrderDto();
         order.SetCustomerEmail("alice@coffee.com");
@@ -63,8 +70,10 @@ public class PriceCalculationEngineTests
         order.AddItem(item);
         var context = new OrderProcessingContext { Order = order };
 
+        // Act
         engine.Execute(context);
 
+        // Assert
         // 10 × 6 = 60, mais la remise cachée applique ×0.9 → 54
         Assert.Equal(54.00m, context.SubTotal);
         Assert.True(engine.IsBulkDiscountApplied());
@@ -73,11 +82,14 @@ public class PriceCalculationEngineTests
     [Fact]
     public void WhenLessThan5ItemsThenNoBulkDiscount()
     {
+        // Arrange
         var engine = new PriceCalculationEngine();
         var context = CreateContext(10.00m, 3);
 
+        // Act
         engine.Execute(context);
 
+        // Assert
         Assert.Equal(30.00m, context.SubTotal);
         Assert.False(engine.IsBulkDiscountApplied());
     }

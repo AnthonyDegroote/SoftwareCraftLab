@@ -26,6 +26,7 @@ public class ConfigurableValidationEngineTests
     [Fact]
     public void WhenValidOrderThenReturnsSuccess()
     {
+        // Arrange
         var engine = CreateOrderValidator();
         var order = new OrderDto();
         order.SetCustomerEmail("alice@coffee.com");
@@ -36,14 +37,17 @@ public class ConfigurableValidationEngineTests
         item.SetSize("Small");
         order.AddItem(item);
 
+        // Act
         var result = engine.Validate(order);
 
+        // Assert
         Assert.True(result.IsValid);
     }
 
     [Fact]
     public void WhenMissingEmailThenReturnsError()
     {
+        // Arrange
         var engine = CreateOrderValidator();
         var order = new OrderDto();
         var item = new BeverageItemDto();
@@ -53,8 +57,10 @@ public class ConfigurableValidationEngineTests
         item.SetSize("Small");
         order.AddItem(item);
 
+        // Act
         var result = engine.Validate(order);
 
+        // Assert
         Assert.False(result.IsValid);
         Assert.Contains("e-mail", result.Errors[0]);
     }
@@ -62,24 +68,30 @@ public class ConfigurableValidationEngineTests
     [Fact]
     public void WhenStopOnFirstErrorDisabledThenReturnsAllErrors()
     {
+        // Arrange
         var engine = CreateOrderValidator().WithStopOnFirstError(false);
         var order = new OrderDto(); // Pas d'email, pas d'articles
 
+        // Act
         var result = engine.Validate(order);
 
+        // Assert
         Assert.Equal(2, result.Errors.Count);
     }
 
     [Fact]
     public void WhenErrorCallbackConfiguredThenCallbackInvoked()
     {
+        // Arrange
         var callbackMessages = new List<string>();
         var engine = CreateOrderValidator()
             .WithErrorCallback(msg => callbackMessages.Add(msg));
         var order = new OrderDto();
 
+        // Act
         engine.Validate(order);
 
+        // Assert
         Assert.Single(callbackMessages);
     }
 }

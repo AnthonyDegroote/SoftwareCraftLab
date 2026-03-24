@@ -21,8 +21,10 @@ public class OrderServiceTests
     [Fact]
     public void WhenOrderIsValidThenReturnsTotalPrice()
     {
+        // Act
         decimal total = _service.ProcessOrder(CreateValidOrder());
 
+        // Assert
         // 50×2 + 25×1 = 125
         Assert.Equal(125m, total);
     }
@@ -30,8 +32,10 @@ public class OrderServiceTests
     [Fact]
     public void WhenDiscountPercent10ThenApplies10PercentOff()
     {
+        // Act
         decimal total = _service.ProcessOrder(CreateValidOrder("PERCENT10"));
 
+        // Assert
         // 125 × 0.90 = 112.5
         Assert.Equal(112.5m, total);
     }
@@ -39,8 +43,10 @@ public class OrderServiceTests
     [Fact]
     public void WhenDiscountFixed5ThenSubtracts5()
     {
+        // Act
         decimal total = _service.ProcessOrder(CreateValidOrder("FIXED5"));
 
+        // Assert
         // 125 - 5 = 120
         Assert.Equal(120m, total);
     }
@@ -48,41 +54,52 @@ public class OrderServiceTests
     [Fact]
     public void WhenUnknownDiscountCodeThenNoDiscountApplied()
     {
+        // Act
         decimal total = _service.ProcessOrder(CreateValidOrder("UNKNOWN"));
 
+        // Assert
         Assert.Equal(125m, total);
     }
 
     [Fact]
     public void WhenOrderHasNoItemsThenThrows()
     {
+        // Arrange
         var order = new Order("client@example.com", []);
 
+        // Act
         var exception = Assert.Throws<InvalidOperationException>(
             () => _service.ProcessOrder(order));
 
+        // Assert
         Assert.Contains("au moins un article", exception.Message);
     }
 
     [Fact]
     public void WhenEmailIsMissingThenThrows()
     {
+        // Arrange
         var order = new Order("", [new OrderItem("Clavier", 50m, 1)]);
 
+        // Act
         var exception = Assert.Throws<InvalidOperationException>(
             () => _service.ProcessOrder(order));
 
+        // Assert
         Assert.Contains("e-mail", exception.Message);
     }
 
     [Fact]
     public void WhenQuantityIsZeroThenThrows()
     {
+        // Arrange
         var order = new Order("client@example.com", [new OrderItem("Clavier", 50m, 0)]);
 
+        // Act
         var exception = Assert.Throws<InvalidOperationException>(
             () => _service.ProcessOrder(order));
 
+        // Assert
         Assert.Contains("quantité", exception.Message);
     }
 
@@ -90,8 +107,10 @@ public class OrderServiceTests
     [Fact]
     public void WhenOrderProcessedThenOrderIsSaved()
     {
+        // Act
         _service.ProcessOrder(CreateValidOrder());
 
+        // Assert
         Assert.Single(_service.SavedOrders);
     }
 
@@ -99,8 +118,10 @@ public class OrderServiceTests
     [Fact]
     public void WhenOrderProcessedThenEmailIsSent()
     {
+        // Act
         _service.ProcessOrder(CreateValidOrder());
 
+        // Assert
         Assert.Single(_service.SentEmails);
     }
 }

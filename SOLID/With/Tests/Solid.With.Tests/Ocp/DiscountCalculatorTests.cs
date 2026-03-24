@@ -14,10 +14,13 @@ public class DiscountCalculatorTests
     [Fact]
     public void WhenPercentageDiscountThenReducesByPercentage()
     {
+        // Arrange
         var strategy = new PercentageDiscount(10);
 
+        // Act
         decimal result = DiscountCalculator.ApplyDiscount(100m, strategy);
 
+        // Assert
         Assert.Equal(90m, result);
     }
 
@@ -28,20 +31,26 @@ public class DiscountCalculatorTests
     public void WhenFixedAmountDiscountThenReturnsExpectedAmount(
         decimal amount, decimal discountAmount, decimal expected)
     {
+        // Arrange
         var strategy = new FixedAmountDiscount(discountAmount);
 
+        // Act
         decimal result = DiscountCalculator.ApplyDiscount(amount, strategy);
 
+        // Assert
         Assert.Equal(expected, result);
     }
 
     [Fact]
     public void WhenNoDiscountThenReturnsOriginalAmount()
     {
+        // Arrange
         var strategy = new NoDiscount();
 
+        // Act
         decimal result = DiscountCalculator.ApplyDiscount(100m, strategy);
 
+        // Assert
         Assert.Equal(100m, result);
     }
 
@@ -50,10 +59,13 @@ public class DiscountCalculatorTests
     [Fact]
     public void WhenCustomStrategyThenCalculatorAppliesIt()
     {
+        // Arrange
         var strategy = new BuyTwoGetOneFreeDiscount();
 
+        // Act
         decimal result = DiscountCalculator.ApplyDiscount(150m, strategy);
 
+        // Assert
         Assert.Equal(100m, result);
     }
 

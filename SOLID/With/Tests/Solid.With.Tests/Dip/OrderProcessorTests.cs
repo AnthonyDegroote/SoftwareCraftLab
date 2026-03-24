@@ -19,24 +19,30 @@ public class OrderProcessorTests
     [Fact]
     public void WhenProcessOrderThenReturnsFormattedResult()
     {
+        // Arrange
         var repository = new InMemoryOrderRepository();
         var notification = new InMemoryNotificationService();
         var processor = new OrderProcessor(repository, notification);
 
+        // Act
         string result = processor.Process(CreateValidOrder());
 
+        // Assert
         Assert.Contains("125", result);
     }
 
     [Fact]
     public void WhenProcessOrderThenOrderIsSavedInRepository()
     {
+        // Arrange
         var repository = new InMemoryOrderRepository();
         var notification = new InMemoryNotificationService();
         var processor = new OrderProcessor(repository, notification);
 
+        // Act
         processor.Process(CreateValidOrder());
 
+        // Assert
         Assert.Single(repository.Records);
         Assert.Contains("client@example.com", repository.Records[0]);
     }
@@ -44,12 +50,15 @@ public class OrderProcessorTests
     [Fact]
     public void WhenProcessOrderThenNotificationIsSent()
     {
+        // Arrange
         var repository = new InMemoryOrderRepository();
         var notification = new InMemoryNotificationService();
         var processor = new OrderProcessor(repository, notification);
 
+        // Act
         processor.Process(CreateValidOrder());
 
+        // Assert
         Assert.Single(notification.SentMessages);
         Assert.Contains("client@example.com", notification.SentMessages[0]);
     }
@@ -57,10 +66,12 @@ public class OrderProcessorTests
     [Fact]
     public void WhenOrderIsNullThenThrowsArgumentNull()
     {
+        // Arrange
         var repository = new InMemoryOrderRepository();
         var notification = new InMemoryNotificationService();
         var processor = new OrderProcessor(repository, notification);
 
+        // Act & Assert
         Assert.Throws<ArgumentNullException>(() => processor.Process(null!));
     }
 
@@ -69,10 +80,12 @@ public class OrderProcessorTests
     [Fact]
     public void WhenRepositoryFailsThenExceptionPropagates()
     {
+        // Arrange
         var failingRepo = new FailingOrderRepository();
         var notification = new InMemoryNotificationService();
         var processor = new OrderProcessor(failingRepo, notification);
 
+        // Act & Assert
         Assert.Throws<InvalidOperationException>(() => processor.Process(CreateValidOrder()));
     }
 

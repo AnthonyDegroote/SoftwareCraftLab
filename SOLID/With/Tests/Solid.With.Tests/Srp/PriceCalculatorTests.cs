@@ -14,21 +14,27 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenSingleItemThenReturnsPriceTimesQuantity()
     {
+        // Arrange
         var order = new Order("client@example.com", [new OrderItem("Clavier", 50m, 3)]);
 
+        // Act
         decimal total = PriceCalculator.CalculateTotal(order);
 
+        // Assert
         Assert.Equal(150m, total);
     }
 
     [Fact]
     public void WhenMultipleItemsThenReturnsSumOfAllItems()
     {
+        // Arrange
         var order = new Order("client@example.com",
             [new OrderItem("Clavier", 50m, 2), new OrderItem("Souris", 25m, 1)]);
 
+        // Act
         decimal total = PriceCalculator.CalculateTotal(order);
 
+        // Assert
         // 50×2 + 25×1 = 125
         Assert.Equal(125m, total);
     }

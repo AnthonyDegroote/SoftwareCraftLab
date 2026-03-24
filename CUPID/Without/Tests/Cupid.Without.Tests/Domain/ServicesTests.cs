@@ -20,11 +20,14 @@ public class ServicesTests
     [Fact]
     public void WhenEntityPersistedThenDataStoreContainsRecord()
     {
+        // Arrange
         var manager = new EntityPersistenceManager();
         var context = CreateContextWithSubTotal(10.00m);
 
+        // Act
         manager.Execute(context);
 
+        // Assert
         // ANTI-CUPID Domain : "Entity persisted" au lieu de "Commande enregistrée"
         Assert.Single(manager.DataStore);
         Assert.Contains("Entity persisted", manager.DataStore[0]);
@@ -33,12 +36,15 @@ public class ServicesTests
     [Fact]
     public void WhenPayloadDispatchedThenEndpointReceivesIt()
     {
+        // Arrange
         var dispatcher = new NotificationDispatcher();
         var context = CreateContextWithSubTotal(10.00m);
         context.FinalTotal = 10.00m;
 
+        // Act
         dispatcher.Execute(context);
 
+        // Assert
         // ANTI-CUPID Domain : "Payload dispatched to endpoint" au lieu de "Confirmation envoyée"
         Assert.Single(dispatcher.DispatchedPayloads);
         Assert.Contains("Payload dispatched", dispatcher.DispatchedPayloads[0]);

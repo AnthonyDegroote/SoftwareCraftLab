@@ -17,10 +17,13 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenCalculateSubTotalThenSumsAllLines()
     {
+        // Arrange
         var lines = new[] { new OrderLine(_espresso, 2), new OrderLine(_latte, 1) };
 
+        // Act
         var subTotal = PriceCalculator.CalculateSubTotal(lines);
 
+        // Assert
         // 2.50×2 + 4.00×1 = 9.00
         Assert.Equal(9.00m, subTotal.Amount);
     }
@@ -29,12 +32,15 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenCalledMultipleTimesThenSameResult()
     {
+        // Arrange
         var lines = new[] { new OrderLine(_espresso, 2) };
 
+        // Act
         var result1 = PriceCalculator.CalculateSubTotal(lines);
         var result2 = PriceCalculator.CalculateSubTotal(lines);
         var result3 = PriceCalculator.CalculateSubTotal(lines);
 
+        // Assert
         Assert.Equal(result1, result2);
         Assert.Equal(result2, result3);
     }
@@ -42,21 +48,27 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenCalculateTaxThenAmountIsCorrect()
     {
+        // Arrange
         var subTotal = new Money(10.00m);
 
+        // Act
         var tax = PriceCalculator.CalculateTax(subTotal, 0.20m);
 
+        // Assert
         Assert.Equal(2.00m, tax.Amount);
     }
 
     [Fact]
     public void WhenCalculateTotalThenSubTotalPlusTax()
     {
+        // Arrange
         var subTotal = new Money(10.00m);
         var tax = new Money(2.00m);
 
+        // Act
         var total = PriceCalculator.CalculateTotal(subTotal, tax);
 
+        // Assert
         Assert.Equal(12.00m, total.Amount);
     }
 
@@ -64,10 +76,13 @@ public class PriceCalculatorTests
     [Fact]
     public void WhenLargeOrderThenNoHiddenDiscount()
     {
+        // Arrange
         var lines = new[] { new OrderLine(_espresso, 100) };
 
+        // Act
         var subTotal = PriceCalculator.CalculateSubTotal(lines);
 
+        // Assert
         // 2.50 × 100 = 250.00, pas de remise cachée
         Assert.Equal(250.00m, subTotal.Amount);
     }

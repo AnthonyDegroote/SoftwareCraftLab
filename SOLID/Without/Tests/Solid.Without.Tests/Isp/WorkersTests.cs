@@ -12,24 +12,30 @@ public class WorkersTests
     [Fact]
     public void WhenHumanWorkerWorksThenReturnsMessage()
     {
+        // Arrange
         var worker = new HumanWorker();
 
+        // Act & Assert
         Assert.Equal("L'humain travaille.", worker.Work());
     }
 
     [Fact]
     public void WhenHumanWorkerEatsThenReturnsMessage()
     {
+        // Arrange
         var worker = new HumanWorker();
 
+        // Act & Assert
         Assert.Equal("L'humain mange.", worker.Eat());
     }
 
     [Fact]
     public void WhenRobotWorkerWorksThenReturnsMessage()
     {
+        // Arrange
         var worker = new RobotWorker();
 
+        // Act & Assert
         Assert.Equal("Le robot travaille.", worker.Work());
     }
 
@@ -38,24 +44,30 @@ public class WorkersTests
     [Fact]
     public void WhenRobotWorkerEatsThenThrowsNotSupported()
     {
+        // Arrange
         var worker = new RobotWorker();
 
+        // Act & Assert
         Assert.Throws<NotSupportedException>(() => worker.Eat());
     }
 
     [Fact]
     public void WhenRobotWorkerSleepsThenThrowsNotSupported()
     {
+        // Arrange
         var worker = new RobotWorker();
 
+        // Act & Assert
         Assert.Throws<NotSupportedException>(() => worker.Sleep());
     }
 
     [Fact]
     public void WhenRobotWorkerAttendsMeetingThenThrowsNotSupported()
     {
+        // Arrange
         var worker = new RobotWorker();
 
+        // Act & Assert
         Assert.Throws<NotSupportedException>(() => worker.AttendMeeting());
     }
 }

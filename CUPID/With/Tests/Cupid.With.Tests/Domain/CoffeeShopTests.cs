@@ -38,11 +38,14 @@ public class CoffeeShopTests
     [Fact]
     public void WhenPlaceOrderThenConfirmationContainsCorrectTotal()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out _);
         var order = CreateOrder();
 
+        // Act
         var confirmation = shop.PlaceOrder(order);
 
+        // Assert
         // Espresso 2.50×2 + Latte 4.00×1 = 9.00
         Assert.Equal(9.00m, confirmation.SubTotal.Amount);
     }
@@ -50,10 +53,13 @@ public class CoffeeShopTests
     [Fact]
     public void WhenPlaceOrderThenTaxIsCalculated()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out _);
 
+        // Act
         var confirmation = shop.PlaceOrder(CreateOrder());
 
+        // Assert
         // 9.00 × 0.20 = 1.80
         Assert.Equal(1.80m, confirmation.Tax.Amount);
     }
@@ -61,10 +67,13 @@ public class CoffeeShopTests
     [Fact]
     public void WhenPlaceOrderThenTotalIncludesTax()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out _);
 
+        // Act
         var confirmation = shop.PlaceOrder(CreateOrder());
 
+        // Assert
         // 9.00 + 1.80 = 10.80
         Assert.Equal(10.80m, confirmation.Total.Amount);
     }
@@ -73,10 +82,13 @@ public class CoffeeShopTests
     [Fact]
     public void WhenPlaceOrderThenOrderIsSaved()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out var store, out _);
 
+        // Act
         shop.PlaceOrder(CreateOrder());
 
+        // Assert
         Assert.Single(store.Orders);
     }
 
@@ -84,10 +96,13 @@ public class CoffeeShopTests
     [Fact]
     public void WhenPlaceOrderThenConfirmationIsSent()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out var notifier);
 
+        // Act
         shop.PlaceOrder(CreateOrder());
 
+        // Assert
         Assert.Single(notifier.SentConfirmations);
         Assert.Equal("alice@coffee.com", notifier.SentConfirmations[0].Order.CustomerEmail);
     }
@@ -95,20 +110,25 @@ public class CoffeeShopTests
     [Fact]
     public void WhenInvalidOrderThenThrows()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out _);
         var invalidOrder = new CoffeeOrder("", "alice@coffee.com",
             [CoffeeMenu.OrderLine(CoffeeMenu.Espresso(), 1)]);
 
+        // Act
         var exception = Assert.Throws<InvalidOperationException>(() => shop.PlaceOrder(invalidOrder));
 
+        // Assert
         Assert.Contains("nom", exception.Message);
     }
 
     [Fact]
     public void WhenNullOrderThenThrows()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out _);
 
+        // Act & Assert
         Assert.Throws<ArgumentNullException>(() => shop.PlaceOrder(null!));
     }
 
@@ -117,11 +137,14 @@ public class CoffeeShopTests
     [Fact]
     public void WhenPlaceOrderThenConfirmationContainsOriginalOrder()
     {
+        // Arrange
         var shop = CreateCoffeeShop(out _, out _);
         var order = CreateOrder();
 
+        // Act
         var confirmation = shop.PlaceOrder(order);
 
+        // Assert
         Assert.Equal(order, confirmation.Order);
     }
 }
