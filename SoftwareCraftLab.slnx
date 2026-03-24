@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/01-SOLID/" />
+  <Folder Name="/01-SOLID/">
+    <File Path="CUPID/README.FR.md" />
+  </Folder>
   <Folder Name="/01-SOLID/01-Without/" />
   <Folder Name="/01-SOLID/01-Without/Sources/">
     <Project Path="SOLID/Without/Sources/Solid.Without/Solid.Without.csproj" Id="daa7af27-e3f7-438d-ba47-480a83dc9701" />
@@ -14,8 +16,25 @@
   <Folder Name="/01-SOLID/02-With/Tests/">
     <Project Path="SOLID/With/Tests/SolidWithTests/Solid.With.Tests.csproj" Id="869d835b-0f0a-4369-a4d7-7690bbd55ddb" />
   </Folder>
+  <Folder Name="/02-CUPID/">
+    <File Path="CUPID/README.FR.md" />
+  </Folder>
+  <Folder Name="/02-CUPID/01-Without/" />
+  <Folder Name="/02-CUPID/01-Without/Sources/">
+    <Project Path="CUPID/Without/Sources/Cupid.Without/Cupid.Without.csproj" Id="5ca51dde-b890-4754-879a-45ad355a9458" />
+  </Folder>
+  <Folder Name="/02-CUPID/01-Without/Tests/">
+    <Project Path="CUPID/Without/Tests/Cupid.Without.Tests/Cupid.Without.Tests.csproj" Id="a8bacf6a-7841-4946-8ac0-21dbc3fe888c" />
+  </Folder>
+  <Folder Name="/02-CUPID/02-With/" />
+  <Folder Name="/02-CUPID/02-With/Sources/">
+    <Project Path="CUPID/With/Sources/Cupid.With/Cupid.With.csproj" Id="4ce775ab-1b29-46ac-9913-541031f84d00" />
+  </Folder>
+  <Folder Name="/02-CUPID/02-With/Tests/">
+    <Project Path="CUPID/With/Tests/Cupid.With.Tests/Cupid.With.Tests.csproj" Id="5ebad363-b2e5-489a-99c2-19c411dd36d2" />
+  </Folder>
   <Folder Name="/Éléments de solution/">
-    <File Path="../ReadMe.md" />
     <File Path="README.FR.md" />
+    <File Path="README.md" />
   </Folder>
 </Solution>

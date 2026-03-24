@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sources\Cupid.Without\Cupid.Without.csproj" />
+  </ItemGroup>
+
 </Project>
