@@ -22,4 +22,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sources\Solid.Without\Solid.Without.csproj" />
+  </ItemGroup>
+
 </Project>
